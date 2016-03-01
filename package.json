@@ -1,27 +1,38 @@
 {
-  "author": "John Firebaugh <john.firebaugh@gmail.com>",
-  "name": "chai-jquery",
+  "author": "Merott Movahedi <merott@merott.com>",
+  "name": "chai-cheerio",
   "description": "jQuery assertions for the Chai assertion library",
-  "keywords": [ "chai", "chai-plugin", "vendor", "browser-only", "dom", "test", "assertion", "assert", "testing", "jQuery" ],
-  "version": "2.0.0",
+  "keywords": [
+    "chai",
+    "chai-plugin",
+    "vendor",
+    "browser-only",
+    "dom",
+    "test",
+    "assertion",
+    "assert",
+    "testing",
+    "jQuery",
+    "Cheerio"
+  ],
+  "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/chaijs/chai-jquery"
+    "url": "https://github.com/merott/chai-cheerio"
   },
   "bugs": {
-    "url": "https://github.com/chaijs/chai-jquery/issues"
+    "url": "https://github.com/merott/chai-cheerio/issues"
   },
   "scripts": {
-    "test": "mocha-phantomjs test/index.html"
+    "test": "./node_modules/.bin/mocha test/test.index.js"
   },
-  "main": "./chai-jquery",
+  "main": "./chai-cheerio",
   "engines": {
     "node": ">= 0.4.0"
   },
   "devDependencies": {
     "chai": "1",
-    "mocha": "1",
-    "mocha-phantomjs": "3",
-    "jquery": "2.1.0"
+    "cheerio": "^0.20.0",
+    "mocha": "1"
   }
 }

@@ -1,10 +1,12 @@
+var cheerio = require('cheerio');
+
 describe("jQuery.fn.inspect", function(){
   it("returns the outer HTML of the first matched element", function(){
-    $('<div class="foo"></div>').inspect().should.equal('<div class="foo"></div>');
+    cheerio.load('<div class="foo"></div>').root().inspect().should.equal('<div class="foo"></div>');
   });
 
   it("respects depth", function(){
-    $('<div class="foo"><one><two><three></three></two><two>Three</two></one></div>').inspect(2)
+    cheerio.load('<div class="foo"><one><two><three></three></two><two>Three</two></one></div>').root().inspect(2)
       .should.equal('<div class="foo"><one><two>...</two><two>...</two></one></div>');
   });
 });

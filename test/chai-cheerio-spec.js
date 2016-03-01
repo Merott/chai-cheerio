@@ -1,3 +1,6 @@
+var chai = require('chai');
+var cheerio = require('cheerio');
+
 describe("jQuery assertions", function(){
   var inspect;
 
@@ -26,7 +29,7 @@ describe("jQuery assertions", function(){
   });
 
   describe("attr", function(){
-    var subject = $('<div name="foo"></div>');
+    var subject = cheerio.load('<div name="foo"></div>')('div');
 
     describe("when only attribute name is provided", function(){
       it("passes when the element has the attribute", function(){
@@ -88,7 +91,7 @@ describe("jQuery assertions", function(){
   });
 
   describe("data", function(){
-    var subject = $('<div data-name="foo"></div>');
+    var subject = cheerio.load('<div data-name="foo"></div>')('div');
 
     describe("when only key is provided", function(){
       it("passes when the element's data has the key", function(){
@@ -150,7 +153,7 @@ describe("jQuery assertions", function(){
   });
 
   describe("css", function(){
-    var subject = $('<div style="position:absolute;"></div>');
+    var subject = cheerio.load('<div style="position:absolute;"></div>')('div');
 
     describe("when only property name is provided", function(){
       it("passes when the element's css has the property", function(){
@@ -212,7 +215,7 @@ describe("jQuery assertions", function(){
   });
 
   describe("prop", function(){
-    var subject = $('<input type="checkbox" checked></input>');
+    var subject = cheerio.load('<input type="checkbox" checked></input>')('input');
 
     describe("when only property name is provided", function(){
       it("passes when the element has the property", function(){
@@ -304,7 +307,7 @@ describe("jQuery assertions", function(){
   });
 
   describe("class", function(){
-    var subject = $('<div class="foo"></div>');
+    var subject = cheerio.load('<div class="foo"></div>')('div');
 
     it("passes when the element has the class", function(){
       subject.should.have.class('foo');
@@ -328,7 +331,7 @@ describe("jQuery assertions", function(){
   });
 
   describe("id", function(){
-    var subject = $('<div id="foo"></div>');
+    var subject = cheerio.load('<div id="foo"></div>')('div');
 
     it("passes when the element has the id", function(){
       subject.should.have.id('foo');
@@ -339,7 +342,7 @@ describe("jQuery assertions", function(){
     });
 
     it("passes negated when the element does not have an id", function(){
-      $('<div></div>').should.not.have.id('bar');
+      cheerio.load('<div></div>')('div').should.not.have.id('bar');
     });
 
     it("fails when the element does not have the id", function(){
@@ -355,7 +358,7 @@ describe("jQuery assertions", function(){
     });
 
     it("fails when the element does not have an id", function(){
-      var subject = $('<div></div>');
+      var subject = cheerio.load('<div></div>')('div');
       (function(){
         subject.should.have.id('foo');
       }).should.fail("expected " + inspect(subject) + " to have id 'foo'");
@@ -363,7 +366,7 @@ describe("jQuery assertions", function(){
   });
 
   describe("html", function(){
-    var subject = $('<div><span>span</span></div>');
+    var subject = cheerio.load('<div><span>span</span></div>')('div');
 
     it("passes when the HTML matches", function(){
       subject.should.have.html("<span>span</span>")
@@ -387,7 +390,7 @@ describe("jQuery assertions", function(){
   });
 
   describe("text", function(){
-    var subject = $('<div>foo</div>');
+    var subject = cheerio.load('<div>foo</div>')('div');
 
     it("passes when the text matches", function(){
       subject.should.have.text("foo")
@@ -411,7 +414,7 @@ describe("jQuery assertions", function(){
   });
 
   describe("value", function(){
-    var subject = $('<input value="foo">');
+    var subject = cheerio.load('<input value="foo">')('input');
 
     it("passes when the value matches", function(){
       subject.should.have.value("foo");
@@ -434,75 +437,9 @@ describe("jQuery assertions", function(){
     });
   });
 
-  describe("visible", function(){
-    var visible = $('<div></div>');
-    var hidden  = $('<div style="display: none;"></div>');
-
-    beforeEach(function() {
-      $(visible, hidden).appendTo('#mocha');
-    });
-
-    afterEach(function() {
-      $(visible, hidden).remove();
-    });
-
-    it("passes when the element is visible", function(){
-      visible.should.be.visible;
-    });
-
-    it("passes negated when the element is hidden", function(){
-      hidden.should.not.be.visible;
-    });
-
-    it("fails when the element is hidden", function(){
-      (function(){
-        hidden.should.be.visible;
-      }).should.fail("expected " + inspect(hidden) + " to be visible");
-    });
-
-    it("fails negated when element is visible", function(){
-      (function(){
-        visible.should.not.be.visible;
-      }).should.fail("expected " + inspect(visible) + " not to be visible");
-    });
-  });
-
-  describe("hidden", function(){
-    var visible = $('<div></div>');
-    var hidden  = $('<div style="display: none;"></div>');
-
-    beforeEach(function() {
-      $(visible, hidden).appendTo('#mocha');
-    });
-
-    afterEach(function() {
-      $(visible, hidden).remove();
-    });
-
-    it("passes when the element is hidden", function(){
-      hidden.should.be.hidden;
-    });
-
-    it("passes negated when the element is visible", function(){
-      visible.should.not.be.hidden;
-    });
-
-    it("fails when the element is visible", function(){
-      (function(){
-        visible.should.be.hidden;
-      }).should.fail("expected " + inspect(visible) + " to be hidden");
-    });
-
-    it("fails negated when element is hidden", function(){
-      (function(){
-        hidden.should.not.be.hidden;
-      }).should.fail("expected " + inspect(hidden) + " not to be hidden");
-    });
-  });
-
   describe("selected", function(){
-    var selected    = $('<option selected="selected"></option>');
-    var unselected  = $('<option></option>');
+    var selected    = cheerio.load('<option selected="selected"></option>')('option');
+    var unselected  = cheerio.load('<option></option>')('option');
 
     it("passes when the element is selected", function(){
       selected.should.be.selected;
@@ -526,8 +463,8 @@ describe("jQuery assertions", function(){
   });
 
   describe("checked", function(){
-    var checked    = $('<input type="checkbox" checked="checked">');
-    var unchecked  = $('<input>');
+    var checked    = cheerio.load('<input type="checkbox" checked="checked">')('input');
+    var unchecked  = cheerio.load('<input>')('input');
 
     it("passes when the element is checked", function(){
       checked.should.be.checked;
@@ -551,8 +488,8 @@ describe("jQuery assertions", function(){
   });
 
   describe("enabled", function(){
-    var disabled = $('<input disabled="disabled">');
-    var enabled  = $('<input>');
+    var disabled = cheerio.load('<input disabled="disabled">')('input');
+    var enabled  = cheerio.load('<input>')('input');
 
     it("passes when the element is enabled", function(){
       enabled.should.be.enabled;
@@ -576,8 +513,8 @@ describe("jQuery assertions", function(){
   });
 
   describe("disabled", function(){
-    var disabled = $('<input disabled="disabled">');
-    var enabled  = $('<input>');
+    var disabled = cheerio.load('<input disabled="disabled">')('input');
+    var enabled  = cheerio.load('<input>')('input');
 
     it("passes when the element is disabled", function(){
       disabled.should.be.disabled;
@@ -608,8 +545,8 @@ describe("jQuery assertions", function(){
     var existent, nonexistent;
 
     beforeEach(function(){
-      existent = $('#mocha');
-      nonexistent = $('#foo');
+      existent = cheerio.load('<div id="mocha"></div>')('#mocha');
+      nonexistent = cheerio.load('<div id="mocha"></div>')('#foo');
     });
 
     it("passes when the selection isn't empty", function(){
@@ -623,13 +560,13 @@ describe("jQuery assertions", function(){
     it("fails when the selection is empty", function(){
       (function(){
         nonexistent.should.exist;
-      }).should.fail("expected '#foo' to exist");
+      }).should.fail("expected element to exist");
     });
 
     it("fails negated when the selection isn't empty", function(){
       (function(){
         existent.should.not.exist;
-      }).should.fail("expected '#mocha' not to exist");
+      }).should.fail("expected element not to exist");
     });
   });
 
@@ -638,8 +575,8 @@ describe("jQuery assertions", function(){
       ({}).should.be.empty;
     });
 
-    var empty    = $('<div></div>');
-    var nonempty = $('<div><span></span></div>');
+    var empty    = cheerio.load('<div></div>')('div');
+    var nonempty = cheerio.load('<div><span></span></div>')('div');
 
     it("passes when the elment has no children", function(){
       empty.should.be.empty;
@@ -667,7 +604,7 @@ describe("jQuery assertions", function(){
       ("hello").should.match(/ello/);
     });
 
-    var subject = $('<div id="foo"></div>');
+    var subject = cheerio.load('<div id="foo"></div>')('div');
 
     it("passes when the selection matches the given selector", function(){
       subject.should.match('#foo');
@@ -705,7 +642,7 @@ describe("jQuery assertions", function(){
       }).should.fail("expected 'foo' to not include 'foo'");
     });
 
-    var subject = $('<div><span>example text</span></div>');
+    var subject = cheerio.load('<div><span>example text</span></div>')('div');
 
     it("passes when the selection contains the given text", function(){
       subject.should.contain('example');
@@ -728,13 +665,13 @@ describe("jQuery assertions", function(){
     });
 
     it("handles quotes", function(){
-      $('<div>"quote"</div>').should.contain('"quote"');
-      $("<div>'quote'</div>").should.contain("'quote'");
+      cheerio.load('<div>"quote"</div>')('div').should.contain('"quote"');
+      cheerio.load("<div>'quote'</div>")('div').should.contain("'quote'");
     });
   });
 
   describe("descendants", function(){
-    var subject = $('<div><span></span></div>');
+    var subject = cheerio.load('<div><span></span></div>')('div');
 
     it("passes when the selection has the given selector", function(){
       subject.should.have.descendants('span');
@@ -754,45 +691,6 @@ describe("jQuery assertions", function(){
       (function(){
         subject.should.not.have.descendants("span");
       }).should.fail("expected " + inspect(subject) + " not to have 'span'");
-    });
-  });
-
-  describe("focus", function(){
-    var focused = $('<input type="text" id="focused" name="focused">');
-    var blurred = $('<input type="text" id="blurred" name="blurred">');
-
-    beforeEach(function(done) {
-      focused.appendTo('#mocha');
-      blurred.appendTo('#mocha');
-      focused.on("focus", function () {
-        done();
-      });
-      focused.trigger("focus");
-    });
-
-    afterEach(function() {
-      focused.remove();
-      blurred.remove();
-    });
-
-    it("passes when the element has focus", function(){
-      focused.should.have.focus();
-    });
-
-    it("passes negated when the element does not have focus", function(){
-      blurred.should.not.have.focus();
-    });
-
-    it("fails when the element does not have focus", function(){
-      (function(){
-        blurred.should.have.focus();
-      }).should.fail("expected " + inspect(blurred) + " to have focus");
-    });
-
-    it("fails negated when element has focus", function(){
-      (function(){
-        focused.should.not.have.focus();
-      }).should.fail("expected " + inspect(focused) + " not to have focus");
     });
   });
 });

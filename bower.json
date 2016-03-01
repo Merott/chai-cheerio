@@ -1,18 +1,34 @@
 {
-  "name": "chai-jquery",
-  "description": "jQuery assertions for the Chai assertion library",
-  "keywords": [ "test", "assertion", "assert", "testing", "jQuery" ],
-  "authors": ["John Firebaugh <john.firebaugh@gmail.com>"],
+  "name": "chai-cheerio",
+  "version": "1.0.0",
+  "description": "Cheerio assertions for the Chai assertion library",
+  "keywords": [
+    "test",
+    "assertion",
+    "assert",
+    "testing",
+    "Cheerio"
+  ],
+  "authors": [
+    "Merott Movahedi <merott@merott.com>"
+  ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/chaijs/chai-jquery"
+    "url": "https://github.com/merott/chai-cheerio"
   },
-  "main": ["./chai-jquery.js"],
-  "ignore": [".git", ".gitignore", ".travis.yml", "test"],
+  "main": [
+    "./chai-cheerio.js"
+  ],
+  "ignore": [
+    ".git",
+    ".gitignore",
+    ".travis.yml",
+    "test"
+  ],
   "devDependencies": {
     "chai": "1",
     "mocha": "1",
     "mocha-phantomjs": "3",
-    "jquery": "1.9.1 - 2"
+    "cheerio": "~0.20.0"
   }
 }

@@ -5,21 +5,22 @@
     module.exports = chaiJquery;
   } else if (typeof define === "function" && define.amd) {
     // AMD
-    define(['jquery'], function ($) {
+    define(['cheerio'], function (cheerio) {
       return function (chai, utils) {
-        return chaiJquery(chai, utils, $);
+        return chaiJquery(chai, utils, cheerio);
       };
     });
   } else {
     // Other environment (usually <script> tag): plug in to global chai instance directly.
     chai.use(function (chai, utils) {
-      return chaiJquery(chai, utils, jQuery);
+      return chaiJquery(chai, utils, Cheerio);
     });
   }
-}(function (chai, utils, $) {
+}(function (chai, utils) {
+  var cheerio = require('cheerio');
+
   var inspect = utils.inspect,
       flag = utils.flag;
-  $ = $ || jQuery;
 
   var setPrototypeOf = '__proto__' in Object ?
     function (object, prototype) {
@@ -41,8 +42,8 @@
       copyProperties(object, Object.getPrototypeOf(prototype));
     };
 
-  $.fn.inspect = function (depth) {
-    var el = $('<div />').append(this.clone());
+  cheerio.prototype.inspect = function (depth) {
+    var el = cheerio.load('<div></div>')('div').append(this.clone());
     if (depth !== undefined) {
       var children = el.children();
       while (depth-- > 0)
@@ -154,7 +155,7 @@
     );
   });
 
-  $.each(['visible', 'hidden', 'selected', 'checked', 'enabled', 'disabled'], function (i, attr) {
+  ['selected', 'checked', 'enabled', 'disabled'].forEach(function (attr, i) {
     chai.Assertion.addProperty(attr, function () {
       this.assert(
           flag(this, 'object').is(':' + attr)
@@ -166,11 +167,11 @@
   chai.Assertion.overwriteProperty('exist', function (_super) {
     return function () {
       var obj = flag(this, 'object');
-      if (obj instanceof $) {
+      if (obj instanceof cheerio) {
         this.assert(
             obj.length > 0
-          , 'expected ' + inspect(obj.selector) + ' to exist'
-          , 'expected ' + inspect(obj.selector) + ' not to exist');
+          , 'expected element to exist'
+          , 'expected element not to exist');
       } else {
         _super.apply(this, arguments);
       }
@@ -180,7 +181,7 @@
   chai.Assertion.overwriteProperty('empty', function (_super) {
     return function () {
       var obj = flag(this, 'object');
-      if (obj instanceof $) {
+      if (obj instanceof cheerio) {
         this.assert(
           obj.is(':empty')
           , 'expected #{this} to be empty'
@@ -194,7 +195,7 @@
   chai.Assertion.overwriteMethod('match', function (_super) {
     return function (selector) {
       var obj = flag(this, 'object');
-      if (obj instanceof $) {
+      if (obj instanceof cheerio) {
         this.assert(
             obj.is(selector)
           , 'expected #{this} to match #{exp}'
@@ -211,7 +212,7 @@
     function (_super) {
       return function (text) {
         var obj = flag(this, 'object');
-        if (obj instanceof $) {
+        if (obj instanceof cheerio) {
           this.assert(
               obj.is(':contains(\'' + text + '\')')
             , 'expected #{this} to contain #{exp}'

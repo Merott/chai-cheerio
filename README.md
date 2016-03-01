@@ -1,4 +1,4 @@
-# THIS IS NOT DONE - NOTHING IS DONE YET! I'M JUST STARTING. IT'S AN ATTEMPT TO CREATE CHAI-CHEERIO FROM CHAI-JQUERY!
+# This is a port of chai-jquery to chai-cheerio, and it is working - however the below docs need updating - I will do so soon.
 
 # chai-jquery
 
