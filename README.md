@@ -1,3 +1,5 @@
+# THIS IS NOT DONE - NOTHING IS DONE YET! I'M JUST STARTING. IT'S AN ATTEMPT TO CREATE CHAI-CHEERIO FROM CHAI-JQUERY!
+
 # chai-jquery
 
 chai-jquery is an extension to the [chai](http://chaijs.com/) assertion library that
