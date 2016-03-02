@@ -1,7 +1,10 @@
 {
-  "author": "Merott Movahedi <merott@merott.com>",
   "name": "chai-cheerio",
-  "description": "jQuery assertions for the Chai assertion library",
+  "description": "Cheerio assertions for the Chai assertion library",
+  "authors": [
+    "Merott Movahedi <merott@merott.com>",
+    "John Firebaugh <john.firebaugh@gmail.com>"
+  ],
   "keywords": [
     "chai",
     "chai-plugin",

@@ -11,7 +11,8 @@
     "Cheerio"
   ],
   "authors": [
-    "Merott Movahedi <merott@merott.com>"
+    "Merott Movahedi <merott@merott.com>",
+    "John Firebaugh <john.firebaugh@gmail.com>"
   ],
   "repository": {
     "type": "git",
