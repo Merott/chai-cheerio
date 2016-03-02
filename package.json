@@ -26,7 +26,7 @@
     "url": "https://github.com/merott/chai-cheerio/issues"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha test/test.index.js"
+    "test": "mocha test/test.index.js"
   },
   "main": "./chai-cheerio",
   "engines": {
