@@ -6,7 +6,6 @@
     "chai",
     "chai-plugin",
     "vendor",
-    "browser-only",
     "dom",
     "test",
     "assertion",

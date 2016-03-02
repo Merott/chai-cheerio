@@ -1,22 +1,4 @@
-(function (chaiJquery) {
-  // Module systems magic dance.
-  if (typeof require === "function" && typeof exports === "object" && typeof module === "object") {
-    // NodeJS
-    module.exports = chaiJquery;
-  } else if (typeof define === "function" && define.amd) {
-    // AMD
-    define(['cheerio'], function (cheerio) {
-      return function (chai, utils) {
-        return chaiJquery(chai, utils, cheerio);
-      };
-    });
-  } else {
-    // Other environment (usually <script> tag): plug in to global chai instance directly.
-    chai.use(function (chai, utils) {
-      return chaiJquery(chai, utils, Cheerio);
-    });
-  }
-}(function (chai, utils) {
+module.exports = function (chai, utils) {
   var cheerio = require('cheerio');
 
   var inspect = utils.inspect,
@@ -229,13 +211,4 @@
       };
     }
   );
-
-  chai.Assertion.addMethod('focus', function () {
-    this.assert(
-      // Can't use `$().is(':focus')` because of certain webkit browsers
-      // see https://github.com/ariya/phantomjs/issues/10427
-      flag(this, 'object').get(0) === document.activeElement
-      , 'expected #{this} to have focus'
-      , 'expected #{this} not to have focus');
-  });
-}));
+};
